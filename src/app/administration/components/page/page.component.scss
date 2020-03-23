@@ -1,0 +1,26 @@
+#page-buttons {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  .page-item {
+    width: 25px;
+  }
+
+  .page-item > button {
+    width: 25px;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: small;
+  }
+
+  button {
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+  }
+
+}

@@ -1,0 +1,102 @@
+#butArea {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+}
+
+
+
+.group-but {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-left: 20px;
+
+}
+
+.but-item {
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  position: relative;
+  background: #87a3c1;
+}
+
+.left-but {
+  border: 1px solid #8393a5;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.center-but {
+  border-top: 1px solid #8393a5;
+  border-bottom: 1px solid #8393a5;
+  border-right: 1px solid #8393a5;
+}
+
+.right-but {
+  border-top: 1px solid #8393a5;
+  border-bottom: 1px solid #8393a5;
+  border-right: 1px solid #8393a5;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.one-but {
+  border: 1px solid #8393a5;
+  border-radius: 3px;
+}
+
+.but-item > button > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.but-item > button {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+.input-but {
+  position: relative;
+  margin-left: auto;
+  margin-right: 20px;
+  border: 1px solid #8393a5;
+  border-radius: 3px;
+  background: white;
+}
+
+.input-but > div {
+  width: 150px;
+  background: white;
+  border-radius: 3px;
+
+}
+
+.input-but > div > input {
+  position: absolute;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: white;
+  border-radius: 3px;
+  box-sizing:border-box;
+  width: 90%;
+  height: 100%;
+  left: 5%;
+  outline: none;
+
+}
+
+

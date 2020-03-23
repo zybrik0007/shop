@@ -1,0 +1,9 @@
+<ul id="tabs">
+  <li *ngFor="let link of linkValue; let idx = index"  >
+    <div [routerLink] = link routerLinkActive= "tab-div-active">
+      <a>
+        <label>{{linkName[idx]}}</label>
+      </a>
+    </div>
+  </li>
+</ul>

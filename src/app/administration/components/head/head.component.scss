@@ -1,0 +1,20 @@
+#setting-area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#name-site {
+  margin-left: 20px;
+  color: #374859;
+}
+
+#setting-area > div {
+  margin-right: 20px;
+  color: #173c61;
+}
+
+#setting-area > div > a {
+  text-decoration: none;
+  color: #b9e9ff;
+}

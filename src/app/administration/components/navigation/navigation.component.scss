@@ -1,0 +1,41 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul> li {
+  list-style-type: none;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  position: relative;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 0.7;
+    background: #374859;
+  }
+
+}
+
+
+
+ul> li > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.active {
+  background: #374859;
+  pointer-events: none;
+
+}
+
+
+
+
+
