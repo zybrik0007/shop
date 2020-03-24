@@ -43,5 +43,6 @@ export class TabsComponent implements OnInit {
    this.routerActive = this.tabsObj.filter(el => el.url === this.routerTrue);
    this.linkValue = this.routerActive[0].tabArr;
    this.linkName = this.routerActive[0].name;
+
  }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {GetCategoryInterface, TokensInterface} from '../../interfaces/interfaces';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';

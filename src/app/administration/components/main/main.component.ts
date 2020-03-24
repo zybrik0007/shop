@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GetCategoryInterface, TokensInterface} from '../../interfaces/interfaces';
 import {GetService} from '../../services/requests/get.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -31,14 +32,21 @@ export class MainComponent implements OnInit {
     searchName: this.searchName
   };
 
-  constructor(private getService: GetService) { }
+  constructor(
+    private getService: GetService,
+    private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.router.url === '/administration/reference/category') {
+      this.getCategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC', searchName: ''}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    }
 
-  getCategory() {
-    this.getService.getCategoryService(this.getCategoryParametrs, this.getHeaders)
-      .subscribe(response => {
-        console.log(response);
+  }
+
+  getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {
+    this.getService.getCategoryService(getParametr, getTokens)
+      .subscribe(response => {}, error => {
+        console.log('Ошибка отправки');
       });
   }
 
