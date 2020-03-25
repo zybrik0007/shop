@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GetCategoryInterface, TokensInterface} from '../../interfaces/interfaces';
+import {GetCategoryInterface, GetSubcategoryInterface, TokensInterface} from '../../interfaces/interfaces';
 import {GetService} from '../../services/requests/get.service';
 import {Router} from '@angular/router';
 
@@ -16,6 +16,7 @@ export class MainComponent implements OnInit {
   sortName: string; /*Поле сортировки*/
   sortValue: string; /*Значение сортировки ASC или DESC*/
   searchName: string; /*Значение поля поиск*/
+  searchCatagory: string;
 
   /*Переменная с токенами для request запроса*/
   getHeaders: TokensInterface = {
@@ -29,6 +30,15 @@ export class MainComponent implements OnInit {
     page: this.page,
     sortName: this.sortName,
     sortValue: this.sortValue,
+    searchName: this.searchName,
+  };
+
+  getSubCategoryParametrs: GetSubcategoryInterface = {
+    rows: this.rows,
+    page: this.page,
+    sortName: this.sortName,
+    sortValue: this.sortValue,
+    searchCatagory: this.searchCatagory,
     searchName: this.searchName
   };
 
@@ -37,16 +47,30 @@ export class MainComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    if (this.router.url === '/administration/reference/category') {
-      this.getCategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC', searchName: ''}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+
+    if (this.router.url === '/administration/reference/subcategory') {
+      this.getSubcategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC', searchCatagory: 'Смартфоны', searchName: 'ПоискСубкатегория'}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
+
+    if (this.router.url === '/administration/reference/category') {
+      this.getCategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC',  searchName: 'ПоискКатегори'}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    }
+
+
 
   }
 
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {
     this.getService.getCategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
-        console.log('Ошибка отправки');
+        console.log('Ошибка отправки категория');
+      });
+  }
+
+  getSubcategory(getParametr: GetSubcategoryInterface, getTokens: TokensInterface) {
+    this.getService.getSubcategoryService(getParametr, getTokens)
+      .subscribe(response => {}, error => {
+        console.log('Ошибка отправки субкатегория');
       });
   }
 

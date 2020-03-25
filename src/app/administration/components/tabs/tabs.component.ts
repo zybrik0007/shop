@@ -20,18 +20,16 @@ export class TabsComponent implements OnInit {
     {url: '/administration/goods', tabArr: [['/administration' , 'goods' , 'goods']], name: ['Товары']},
     {url: '/administration/warehouse', tabArr: [['/administration' , 'warehouse' , 'warehouse']], name: ['Склад']},
     {url: '/administration/reference',
-      tabArr: [['/administration', 'reference', 'nomenclature'], ['/administration' , 'reference' , 'category']],
-      name: ['Номенклатура', 'Категория']},
-    {url: '/administration/reference',
-      tabArr: [['/administration', 'reference', 'nomenclature'], ['/administration' , 'reference' , 'category']],
-      name: ['Номенклатура', 'Категория']},
+      tabArr: [['/administration', 'reference', 'nomenclature'], ['/administration' , 'reference' , 'category'],
+        ['/administration', 'reference', 'subcategory'], ['/administration', 'reference', 'firm']],
+      name: ['Номенклатуры', 'Категории', 'Субкатегории', 'Фирмы']},
     {url: '/administration/administration', tabArr: [['/administration', 'administration', 'users']], name: ['Пользователи']},
   ];
 
   constructor(private router: Router) {}
 
  ngOnInit(): void {
-    this.tabQuantity()
+    this.tabQuantity();
  }
 
 
@@ -43,6 +41,5 @@ export class TabsComponent implements OnInit {
    this.routerActive = this.tabsObj.filter(el => el.url === this.routerTrue);
    this.linkValue = this.routerActive[0].tabArr;
    this.linkName = this.routerActive[0].name;
-
  }
 }

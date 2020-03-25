@@ -28,6 +28,8 @@ const routes: Routes = [
       {path: 'reference', redirectTo: 'reference/nomenclature', pathMatch: 'full'},
       {path: 'reference/nomenclature', component: MainComponent},
       {path: 'reference/category', component: MainComponent},
+      {path: 'reference/subcategory', component: MainComponent},
+      {path: 'reference/firm', component: MainComponent},
       {path: 'administration', redirectTo: 'administration/users', pathMatch: 'full'},
       {path: 'administration/users', component: MainComponent},
       {path: 'authenticate', component: AuthenticateComponent},
