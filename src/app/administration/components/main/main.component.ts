@@ -55,9 +55,6 @@ export class MainComponent implements OnInit {
     if (this.router.url === '/administration/reference/category') {
       this.getCategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC',  searchName: 'ПоискКатегори'}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
-
-
-
   }
 
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {

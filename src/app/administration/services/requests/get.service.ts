@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {GetCategoryInterface, GetSubcategoryInterface, GetFirmInterface, TokensInterface} from '../../interfaces/interfaces';
+import {
+  GetCategoryInterface,
+  GetSubcategoryInterface,
+  GetFirmInterface,
+  TokensInterface,
+  GetNomenclatureInterface
+} from '../../interfaces/interfaces';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 
@@ -94,6 +100,34 @@ export class GetService {
     params =  params.append('searchName', req.searchName);
 
     /*Выполнение запроса на сервер*/
+    return this.http.get<Observable<Response>>(url, {
+      headers,
+      params,
+      observe: 'response'
+    });
+  }
+
+  /******************************************************/
+  /**********get запрос на сервер для Номенклатур**********/
+  /*******************************************************/
+  getNomenclatureService(req: GetNomenclatureInterface, tokens: TokensInterface): Observable<object> {
+
+    /*Определение url*/
+    const url: string = environment.urlServer + 'nomenclature';
+
+    /*Определение Headers*/
+    const headers = this.getHeaders(tokens);
+
+    /*Определение QueryParametrs*/
+    let params = new HttpParams();
+    params = params.append('rows', (req.rows).toString());
+    params = params.append('page', (req.page).toString());
+    params = params.append('sortName', req.sortName);
+    params =  params.append('sortValue', req.sortValue);
+    params = params.append('searchCatagory', req.searchCatagory);
+    params = params.append('searchCatagory', req.searchSubcatagory);
+    params =  params.append('searchName', req.searchName);
+
     return this.http.get<Observable<Response>>(url, {
       headers,
       params,
