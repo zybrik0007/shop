@@ -10,13 +10,12 @@ import {Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  @Input()
-  rows: number;  /*Количество строк*/
-  page: number; /*Страница*/
-  sortName: string; /*Поле сортировки*/
-  sortValue: string; /*Значение сортировки ASC или DESC*/
-  searchName: string; /*Значение поля поиск*/
-  searchCatagory: string;
+  @Input() rows: number;  /*Количество строк*/
+  @Input() page: number; /*Страница*/
+  @Input() sortName: string; /*Поле сортировки*/
+  @Input() sortValue: string; /*Значение сортировки ASC или DESC*/
+  @Input() searchName: string; /*Значение поля поиск*/
+  @Input() searchCatagory: string; /*Значение поля категория*/
 
   /*Переменная с токенами для request запроса*/
   getHeaders: TokensInterface = {
@@ -48,13 +47,29 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
-    if (this.router.url === '/administration/reference/subcategory') {
-      this.getSubcategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC', searchCatagory: 'Смартфоны', searchName: 'ПоискСубкатегория'}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    this.rows = 20;
+    this.page = 1;
+    this.sortName = 'id';
+    this.sortValue = 'ASC';
+    this.searchCatagory = '';
+    this.searchName = '';
+
+
+    /*Перчиная инициализация таблицы категорий*/
+    if (this.router.url === '/administration/reference/category') {
+      this.getCategory(
+        {rows: this.rows, page: this.page, searchName: this.sortName, sortValue: this.sortValue, sortName: this.sortName},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
 
-    if (this.router.url === '/administration/reference/category') {
-      this.getCategory({rows: 1, page: 1, sortName: 'id', sortValue: 'ASC',  searchName: 'ПоискКатегори'}, {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    /*Перчиная инициализация таблицы субкатегорий*/
+    if (this.router.url === '/administration/reference/subcategory') {
+      this.getSubcategory(
+        {rows: this.rows, page: this.page, searchName: this.sortName, sortValue: this.sortValue, searchCatagory: this.searchCatagory, sortName: this.sortName},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
+      );
     }
+
   }
 
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {

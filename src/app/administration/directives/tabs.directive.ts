@@ -6,15 +6,8 @@ import {Router} from '@angular/router';
 })
 export class TabsDirective implements OnInit {
 
-  private a: string
-
-  constructor(private route: Router) {
-
-  }
-
-  ngOnInit(): void {
-  }
-
+ngOnInit() {
+}
 
 
 }
