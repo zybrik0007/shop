@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -7,12 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  ask = '▲';
+  desc = '▼';
+  not = ' ';
+
+  test = document.getElementsByClassName('cellSort');
+
+
+  constructor(private r: Renderer2) {}
 
   ngOnInit() {
   }
 
-  updateSort() {
+  updateSort(event) {
+    for (let i = 0; i < this.test.length; i++) {
+      console.log(this.test[i].children);
+    }
+    console.log(this.test);
+
 
   }
 

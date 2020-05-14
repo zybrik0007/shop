@@ -1,11 +1,13 @@
 <div id="area-count-page">
   <small>
     <label>Сумма записей</label>
-    <select>
-      <option>20</option>
-      <option>50</option>
-      <option>100</option>
-    </select>
+    <label>
+      <select (change)="updateRow($event.target['value'])">
+        <option value=20>20</option>
+        <option value=50 > 50 </option>
+        <option value=100 >100</option>
+      </select>
+    </label>
   </small>
 
 </div>

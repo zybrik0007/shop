@@ -58,14 +58,14 @@ export class MainComponent implements OnInit {
     /*Перчиная инициализация таблицы категорий*/
     if (this.router.url === '/administration/reference/category') {
       this.getCategory(
-        {rows: this.rows, page: this.page, searchName: this.sortName, sortValue: this.sortValue, sortName: this.sortName},
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
 
     /*Перчиная инициализация таблицы субкатегорий*/
     if (this.router.url === '/administration/reference/subcategory') {
       this.getSubcategory(
-        {rows: this.rows, page: this.page, searchName: this.sortName, sortValue: this.sortValue, searchCatagory: this.searchCatagory, sortName: this.sortName},
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCatagory},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
       );
     }

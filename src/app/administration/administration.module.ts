@@ -15,6 +15,7 @@ import { CountComponent } from './components/count/count.component';
 import {TabsService} from './services/tabs.service';
 import { TabsDirective } from './directives/tabs.directive';
 import { AuthenticateComponent } from './components/authenticate/authenticate.component';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {path: '', children: [
@@ -58,7 +59,9 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)],
+    RouterModule.forChild(routes),
+    FormsModule
+  ],
   exports: [RouterModule]
 
 })
