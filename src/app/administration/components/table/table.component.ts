@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChildren} from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -7,25 +7,51 @@ import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  ask = '▲';
-  desc = '▼';
-  not = ' ';
-
-  test = document.getElementsByClassName('cellSort');
+  askItem = '▲';
+  descItem = '▼';
+  notItem = ' ';
 
 
-  constructor(private r: Renderer2) {}
+  constructor(private el: ElementRef, private r: Renderer2) {
+  }
 
   ngOnInit() {
   }
 
+
   updateSort(event) {
-    for (let i = 0; i < this.test.length; i++) {
-      console.log(this.test[i].children);
+    const classIndex =  (event.target.className).indexOf('cellSort');
+    let itemActive = '';
+    if (classIndex < 0) {
+      itemActive = event.target.parent;
+    } else {
+
     }
-    console.log(this.test);
+    console.log(classIndex)
+
+
+    console.log(event);
+
+    /*
+    console.log(event);
+    const tabActive = document.getElementById(event);
+    let tabActiveData = tabActive.dataset.sort;
+    const tabs = document.getElementsByClassName('cellSort');
+
+    let activeSort = '';
+    if (tabActiveData === 'desc' || tabActiveData === '') {
+      tabActive.dataset.sort = 'ask';
+      console.log('child', tabActive.children);
+      activeSort = 'ask';
+    } else {
+      tabActiveData = 'desc';
+      activeSort = 'desc';
+    }
+
+    console.log(tabActive.dataset.id);
+  }
+  */
 
 
   }
-
 }
