@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChildren} from '@angular/core';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -7,12 +8,20 @@ import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChildren} f
 })
 export class TableComponent implements OnInit {
 
+  /*Значение визуальной сортирвки*/
   askItem = '▲';
   descItem = '▼';
   notItem = ' ';
-  ElementsSort = document.getElementsByClassName('cellSort');
+  /*Заглавие всех столбцов*/
+  ElementsSort: HTMLCollectionOf<Element> = document.getElementsByClassName('cellSort');
+  /*Переменные для отображения визуализации сортировки в столбцах*/
+  NumberSort: string = this.notItem;
+  NameSort: string = this.notItem;
+  CategorySort: string = this.notItem;
+  SubcategorySort: string = this.notItem;
+  FirmSort: string = this.notItem;
 
-
+  @Output() sortColumn: EventEmitter<object> = new EventEmitter<object>();
 
   constructor(private el: ElementRef, private r: Renderer2) {
   }
@@ -23,50 +32,68 @@ export class TableComponent implements OnInit {
 
   /*Функция сортировки таблицы, при нажатии на шапку стобцы*/
   updateSort(event) {
-
-
+    /*Проверка и приведенеи у нужному dom элементу*/
     const classIndex =  (event.target.className).indexOf('cellSort');
-    let itemActive = '';
+    let itemActive: HTMLElement;
     if (classIndex < 0) {
       const classIndexParent = (event.target.className).indexOf('cellSort');
       if (classIndexParent < 0) {
-        itemActive = event.target.parentElement.parentElement;
+        itemActive = (event.target.parentElement).parentElement;
       } else {
-        itemActive = event.target.parentNode;
+        itemActive = event.target.parentElement;
       }
     } else {
       itemActive = event.target;
     }
 
+    /*Активное значение сортировки, название обрабатываемого столбца, значение изменяемой сортировки, визуализация изменямой сортировки*/
+    const ActiveSort: string = itemActive.dataset.sort;
+    const ActiveColumn: string = itemActive.id;
+    let UpdateSort = '';
+    let UpdateSortAnimation = '';
 
-    console.log('classIndex', itemActive);
-    console.log('itemActive', itemActive);
-    console.log('event', event);
+    /*Убрать визуальное отображаение у всех столбцов*/
+    this.NumberSort = this.NameSort = this.CategorySort = this.SubcategorySort = this.FirmSort = this.notItem;
 
-
-    const ActiveSort = itemActive['dataset'];
-    console.log('ActiveSort', ActiveSort+++);
-
-    /*
-    console.log(event);
-    const tabActive = document.getElementById(event);
-    let tabActiveData = tabActive.dataset.sort;
-    const tabs = document.getElementsByClassName('cellSort');
-
-    let activeSort = '';
-    if (tabActiveData === 'desc' || tabActiveData === '') {
-      tabActive.dataset.sort = 'ask';
-      console.log('child', tabActive.children);
-      activeSort = 'ask';
-    } else {
-      tabActiveData = 'desc';
-      activeSort = 'desc';
+    /*Убрать значение сортировки у всех стобцов*/
+    for (const elem of Object(this.ElementsSort)) {
+      elem.dataset.sort = '';
     }
 
-    console.log(tabActive.dataset.id);
-  }
-  */
+    /*Добавление значение сортировки, значение переменной измененной, значение переменной визуализации сортировки*/
+    if (ActiveSort === ' ' || ActiveSort === 'ASC') {
+      itemActive.dataset.sort = 'DESC';
+      UpdateSort = 'DESC';
+      UpdateSortAnimation = this.descItem;
+    } else {
+      itemActive.dataset.sort = 'ASC';
+      UpdateSort = 'ASC';
+      UpdateSortAnimation = this.askItem;
+    }
 
-
+    /*Определение столца визуализации сортировкий*/
+    switch (ActiveColumn) {
+      case 'number' : {
+        this.NumberSort = UpdateSortAnimation;
+        break;
+      }
+      case 'name' : {
+        this.NameSort = UpdateSortAnimation;
+        break;
+      }
+      case 'category' : {
+        this.CategorySort = UpdateSortAnimation;
+        break;
+      }
+      case 'subcategory' : {
+        this.SubcategorySort = UpdateSortAnimation;
+        break;
+      }
+      case 'firm' : {
+        this.FirmSort = UpdateSortAnimation;
+        break;
+      }
+    }
+    this.sortColumn.emit({sortName: ActiveColumn, sortValue: UpdateSort});
   }
 }

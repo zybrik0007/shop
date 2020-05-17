@@ -1,11 +1,11 @@
 <div id="tableBlock">
 
   <div id="thead" class="tableContent">
-    <div id="number" class="Cell cellSort" (click)="updateSort($event)" data-sort="test1"><div><div class="num">Номер</div><div  class="sort" >1</div></div></div>
-    <div id="name" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Название</div><div class="sort">▲</div></div></div>
-    <div id="category" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Категория</div><div class="sort">▼</div></div></div>
-    <div id="subcategory"  class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Субкатегория</div><div class="sort">▼</div></div></div>
-    <div id="firm" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num" data-sort="">Фирма</div><div class="sort">▼</div></div></div>
+    <div id="number" class="Cell cellSort" (click)="updateSort($event)" data-sort="test1"><div><div class="num">Номер</div><div  class="sort" >{{NumberSort}}</div></div></div>
+    <div id="name" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Название</div><div class="sort">{{NameSort}}</div></div></div>
+    <div id="category" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Категория</div><div class="sort">{{CategorySort}}</div></div></div>
+    <div id="subcategory"  class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Субкатегория</div><div class="sort">{{SubcategorySort}}</div></div></div>
+    <div id="firm" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num" data-sort="">Фирма</div><div class="sort">{{FirmSort}}</div></div></div>
   </div>
 
   <div class="tableContent">

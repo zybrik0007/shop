@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {GetCategoryInterface, GetSubcategoryInterface, TokensInterface} from '../../interfaces/interfaces';
 import {GetService} from '../../services/requests/get.service';
 import {Router} from '@angular/router';
@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnChanges {
 
   @Input() rows: number;  /*Количество строк*/
   @Input() page: number; /*Страница*/
@@ -72,6 +72,8 @@ export class MainComponent implements OnInit {
 
   }
 
+
+
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {
     this.getService.getCategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
@@ -84,6 +86,23 @@ export class MainComponent implements OnInit {
       .subscribe(response => {}, error => {
         console.log('Ошибка отправки субкатегория');
       });
+  }
+
+
+
+  sortdColumn(event) {
+    console.log(event);
+    console.log('event.sortName ', event.sortName);
+    this.sortName = event.sortName;
+    this.sortValue = event.sortValue;
+    console.log('this.sortName: ', this.sortName);
+    console.log('this.sortName: ', this.sortValue);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    console.log('changes: ', changes);
   }
 
 }
