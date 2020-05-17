@@ -10,6 +10,8 @@ export class TableComponent implements OnInit {
   askItem = '▲';
   descItem = '▼';
   notItem = ' ';
+  ElementsSort = document.getElementsByClassName('cellSort');
+
 
 
   constructor(private el: ElementRef, private r: Renderer2) {
@@ -19,18 +21,31 @@ export class TableComponent implements OnInit {
   }
 
 
+  /*Функция сортировки таблицы, при нажатии на шапку стобцы*/
   updateSort(event) {
+
+
     const classIndex =  (event.target.className).indexOf('cellSort');
     let itemActive = '';
     if (classIndex < 0) {
-      itemActive = event.target.parent;
+      const classIndexParent = (event.target.className).indexOf('cellSort');
+      if (classIndexParent < 0) {
+        itemActive = event.target.parentElement.parentElement;
+      } else {
+        itemActive = event.target.parentNode;
+      }
     } else {
-
+      itemActive = event.target;
     }
-    console.log(classIndex)
 
 
-    console.log(event);
+    console.log('classIndex', itemActive);
+    console.log('itemActive', itemActive);
+    console.log('event', event);
+
+
+    const ActiveSort = itemActive['dataset'];
+    console.log('ActiveSort', ActiveSort+++);
 
     /*
     console.log(event);
