@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChildren} from '@angular/core';
 import {of} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -20,13 +21,33 @@ export class TableComponent implements OnInit {
   CategorySort: string = this.notItem;
   SubcategorySort: string = this.notItem;
   FirmSort: string = this.notItem;
+  /*Переменная для определение заглваия столбцов*/
+  HeadColumnUrl: string;
+
 
   @Output() sortColumn: EventEmitter<object> = new EventEmitter<object>();
 
-  constructor(private el: ElementRef, private r: Renderer2) {
-  }
+  constructor(private el: ElementRef,
+              private r: Renderer2,
+              private router: Router) {}
 
   ngOnInit() {
+    if (this.router.url === '/administration/reference/nomenclature') {
+      this.HeadColumnUrl = 'nomenclature';
+    }
+
+    if (this.router.url === '/administration/reference/category') {
+      this.HeadColumnUrl = 'category';
+    }
+
+    if (this.router.url === '/administration/reference/subcategory') {
+      this.HeadColumnUrl = 'subcategory';
+    }
+
+    if (this.router.url === '/administration/reference/firm') {
+      this.HeadColumnUrl = 'firm';
+    }
+
   }
 
 
@@ -48,9 +69,10 @@ export class TableComponent implements OnInit {
 
     /*Активное значение сортировки, название обрабатываемого столбца, значение изменяемой сортировки, визуализация изменямой сортировки*/
     const ActiveSort: string = itemActive.dataset.sort;
-    const ActiveColumn: string = itemActive.id;
+    const ActiveColumn: string = itemActive.dataset.id;
     let UpdateSort = '';
     let UpdateSortAnimation = '';
+    console.log('itemActive.dataset: ', itemActive.dataset);
 
     /*Убрать визуальное отображаение у всех столбцов*/
     this.NumberSort = this.NameSort = this.CategorySort = this.SubcategorySort = this.FirmSort = this.notItem;
@@ -70,6 +92,7 @@ export class TableComponent implements OnInit {
       UpdateSort = 'ASC';
       UpdateSortAnimation = this.askItem;
     }
+    console.log('ActiveColumn: ', ActiveColumn);
 
     /*Определение столца визуализации сортировкий*/
     switch (ActiveColumn) {

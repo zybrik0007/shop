@@ -19,7 +19,7 @@
   z-index: 1;
 }
 
-#thead {
+.thead {
   position: sticky;
   border-bottom: 1px solid #a3aeb9;
   top: 0;
@@ -37,7 +37,7 @@
   justify-content: center;
 }
 
-#thead {
+.thead {
   .Cell {
     div {
       display: flex;
@@ -45,6 +45,8 @@
       flex-wrap: nowrap;
       justify-content: flex-start;
       font-size: small;
+
     }
   }
 }
+

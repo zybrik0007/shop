@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {GetCategoryInterface, GetSubcategoryInterface, TokensInterface} from '../../interfaces/interfaces';
+import {GetCategoryInterface, GetSubcategoryInterface, GetFirmInterface, GetNomenclatureInterface, TokensInterface} from '../../interfaces/interfaces';
 import {GetService} from '../../services/requests/get.service';
 import {Router} from '@angular/router';
 
@@ -8,14 +8,15 @@ import {Router} from '@angular/router';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnChanges {
+export class MainComponent implements OnInit {
 
   @Input() rows: number;  /*Количество строк*/
   @Input() page: number; /*Страница*/
   @Input() sortName: string; /*Поле сортировки*/
   @Input() sortValue: string; /*Значение сортировки ASC или DESC*/
   @Input() searchName: string; /*Значение поля поиск*/
-  @Input() searchCatagory: string; /*Значение поля категория*/
+  @Input() searchCategory: string; /*Значение поля категория*/
+  @Input() searchSubcategory: string; /*Значение поля субкатегория*/
 
   /*Переменная с токенами для request запроса*/
   getHeaders: TokensInterface = {
@@ -23,23 +24,6 @@ export class MainComponent implements OnInit, OnChanges {
     RefreshAdmin: localStorage.getItem('RefreshAdmin')
   };
 
-  /*Переменная с параметрами для get запроса таблицы Категорий*/
-  getCategoryParametrs: GetCategoryInterface = {
-    rows: this.rows,
-    page: this.page,
-    sortName: this.sortName,
-    sortValue: this.sortValue,
-    searchName: this.searchName,
-  };
-
-  getSubCategoryParametrs: GetSubcategoryInterface = {
-    rows: this.rows,
-    page: this.page,
-    sortName: this.sortName,
-    sortValue: this.sortValue,
-    searchCatagory: this.searchCatagory,
-    searchName: this.searchName
-  };
 
   constructor(
     private getService: GetService,
@@ -51,21 +35,21 @@ export class MainComponent implements OnInit, OnChanges {
     this.page = 1;
     this.sortName = 'id';
     this.sortValue = 'ASC';
-    this.searchCatagory = '';
+    this.searchCategory = '';
     this.searchName = '';
+    this.searchSubcategory = '';
 
-
-    /*Перчиная инициализация таблицы категорий*/
+    /*Первичная инициализация таблицы категорий*/
     if (this.router.url === '/administration/reference/category') {
       this.getCategory(
         {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
 
-    /*Перчиная инициализация таблицы субкатегорий*/
+    /*Первичная инициализация таблицы субкатегорий*/
     if (this.router.url === '/administration/reference/subcategory') {
       this.getSubcategory(
-        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCatagory},
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
       );
     }
@@ -73,7 +57,13 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
 
+  /*Функции выборки данный для таблиц по араметрам*/
+  /*Выбока номенклатур*/
+  getNomenclature(getParametr: GetNomenclatureInterface, getTokens: TokensInterface) {}
 
+
+
+  /*Выборка категорий*/
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {
     this.getService.getCategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
@@ -81,6 +71,7 @@ export class MainComponent implements OnInit, OnChanges {
       });
   }
 
+  /*Выборка субкатегорий*/
   getSubcategory(getParametr: GetSubcategoryInterface, getTokens: TokensInterface) {
     this.getService.getSubcategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
@@ -89,20 +80,60 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
 
+    /*Изменение таблицы с наложением фильтров*/
+  updateTable(event) {
+    /*Определнеие массива названия ключей, event-объекта*/
+    const EventArr = Object.keys(event);
+    /*Определение по каким параметрам будет выборка и обвноление таблицы*/
+    for (const element of EventArr) {
+      switch (element) {
+        case 'sortName': {
+          this.sortName = event.sortName;
+          break;
+        }
+        case 'sortValue': {
+          this.sortValue = event.sortValue;
+          break;
+        }
+        case 'rows': {
+          this.rows = event.rows;
+          break;
+        }
+        case 'page': {
+          this.page = event.page;
+          break;
+        }
+        case 'searchName': {
+          this.searchName = event.searchName;
+          break;
+        }
+        case 'searchCategory': {
+          this.searchCategory = event.searchCategory;
+          break;
+        }
+        case 'searchSubcategory': {
+          this.searchSubcategory = event.searchSubcategory;
+          break;
+        }
+      }
+    }
 
-  sortdColumn(event) {
-    console.log(event);
-    console.log('event.sortName ', event.sortName);
-    this.sortName = event.sortName;
-    this.sortValue = event.sortValue;
-    console.log('this.sortName: ', this.sortName);
-    console.log('this.sortName: ', this.sortValue);
+    /*Фильтрация таблицы категорий*/
+    if (this.router.url === '/administration/reference/category') {
+      this.getCategory(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    }
+
+    /*Фильтрация таблицы субкатегорий*/
+    if (this.router.url === '/administration/reference/subcategory') {
+      this.getSubcategory(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
+      );
+    }
+
   }
 
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    console.log('changes: ', changes);
-  }
 
 }

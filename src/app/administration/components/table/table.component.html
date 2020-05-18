@@ -1,19 +1,54 @@
 <div id="tableBlock">
 
-  <div id="thead" class="tableContent">
-    <div id="number" class="Cell cellSort" (click)="updateSort($event)" data-sort="test1"><div><div class="num">Номер</div><div  class="sort" >{{NumberSort}}</div></div></div>
-    <div id="name" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Название</div><div class="sort">{{NameSort}}</div></div></div>
-    <div id="category" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Категория</div><div class="sort">{{CategorySort}}</div></div></div>
-    <div id="subcategory"  class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num">Субкатегория</div><div class="sort">{{SubcategorySort}}</div></div></div>
-    <div id="firm" class="Cell cellSort" (click)="updateSort($event)" data-sort=""><div><div class="num" data-sort="">Фирма</div><div class="sort">{{FirmSort}}</div></div></div>
+  <!-- Номенклатура-->
+  <!-- Шапки столбцов таблицы номенклатуры -->
+  <div *ngIf="HeadColumnUrl === 'nomenclature'" class="tableContent thead">
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="test1" data-id="number"><div><div class="num">Номер</div><div  class="sort" >{{NumberSort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="name"><div><div class="num" >Название</div><div class="sort">{{NameSort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="category"><div><div class="num" >Категория</div><div class="sort">{{CategorySort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="subcategory"><div><div class="num" >Субкатегория</div><div class="sort">{{SubcategorySort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-sort="firm"><div><div class="num" >Фирма</div><div class="sort">{{FirmSort}}</div></div></div>
   </div>
-
-  <div class="tableContent">
+  <!-- Столбцы и строки таблицы  номенклатуры-->
+  <div class="tableContent" *ngIf="HeadColumnUrl === 'nomenclature'">
     <div class="Cell">Номер</div>
     <div class="Cell">Название</div>
     <div class="Cell">Категория</div>
     <div class="Cell">Субкатегория</div>
     <div class="Cell">Фирма</div>
   </div>
+
+  <!-- Категория-->
+  <!-- Шапка столбца таблицы категории -->
+  <div *ngIf="HeadColumnUrl === 'category'" class="tableContent thead">
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="name"><div><div class="num">Название</div><div class="sort">{{NameSort}}</div></div></div>
+  </div>
+  <!-- Столбец и строки таблицы  категории -->
+  <div class="tableContent" *ngIf="HeadColumnUrl === 'category'">
+    <div class="Cell">Название</div>
+  </div>
+
+  <!-- Субкатегория-->
+  <!-- Шапки столбцов таблицы субкатегории -->
+  <div *ngIf="HeadColumnUrl === 'subcategory'" class="tableContent thead">
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="name"><div><div class="num" >Название</div><div class="sort">{{NameSort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="category"><div><div class="num" >Категория</div><div class="sort">{{CategorySort}}</div></div></div>
+  </div>
+  <!--Столбцы и строки таблицы  субкатегории -->
+  <div class="tableContent" *ngIf="HeadColumnUrl === 'subcategory'">
+    <div class="Cell">Название</div>
+    <div class="Cell">Категория</div>
+  </div>
+
+  <!-- Фирмы-->
+  <!-- Шапка столбца таблицы фирмы -->
+  <div *ngIf="HeadColumnUrl === 'firm'" class="tableContent thead">
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="name"><div><div class="num">Название</div><div class="sort">{{NameSort}}</div></div></div>
+  </div>
+  <!-- Столбец и строки таблицы  фирмы -->
+  <div class="tableContent" *ngIf="HeadColumnUrl === 'firm'">
+    <div class="Cell">Название</div>
+  </div>
+
 
 </div>

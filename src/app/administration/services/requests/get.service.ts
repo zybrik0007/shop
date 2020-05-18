@@ -125,7 +125,7 @@ export class GetService {
     params = params.append('sortName', req.sortName);
     params =  params.append('sortValue', req.sortValue);
     params = params.append('searchCatagory', req.searchCatagory);
-    params = params.append('searchCatagory', req.searchSubcatagory);
+    params = params.append('searchSubcatagory', req.searchSubcatagory);
     params =  params.append('searchName', req.searchName);
 
     return this.http.get<Observable<Response>>(url, {
