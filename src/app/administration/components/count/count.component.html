@@ -2,7 +2,7 @@
   <small>
     <label>Сумма записей</label>
     <label>
-      <select (change)="updateRow($event.target['value'])">
+      <select id="activeCount" (change)="updateSort($event)">
         <option value=20>20</option>
         <option value=50 > 50 </option>
         <option value=100 >100</option>

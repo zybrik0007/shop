@@ -18,7 +18,7 @@ export interface GetCategoryInterface {
   page: number;
   sortName: string;
   sortValue: string;
-  searchName?: string;
+  searchName: string;
 }
 
 /*Интрефес для вывода таблицы Субкатегория*/
@@ -28,7 +28,7 @@ export interface GetSubcategoryInterface {
   sortName: string;
   sortValue: string;
   searchCatagory?: string;
-  searchName?: string;
+  searchName: string;
 }
 
 /*Интрефес для вывода таблицы Фирма*/
@@ -37,7 +37,7 @@ export interface GetFirmInterface {
   page: number;
   sortName: string;
   sortValue: string;
-  searchName?: string;
+  searchName: string;
 }
 
 /*Интерфейт для вывода таблицы Номенклатур*/
@@ -46,8 +46,8 @@ export interface GetNomenclatureInterface {
   page: number;
   sortName: string;
   sortValue: string;
-  searchCatagory?: string;
-  searchSubcatagory?: string;
-  searchName?: string;
+  searchCatagory: string;
+  searchSubcatagory: string;
+  searchName: string;
 }
 

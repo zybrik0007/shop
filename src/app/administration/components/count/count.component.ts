@@ -8,7 +8,7 @@ import {Component, EventEmitter, OnChanges, OnInit, Output} from '@angular/core'
   styleUrls: ['./count.component.scss']
 })
 export class CountComponent implements OnInit, OnChanges {
-  @Output() rowsUpt: EventEmitter<number> = new EventEmitter<number>()
+  @Output() rowsUpt: EventEmitter<object> = new EventEmitter<object>()
 
 
 
@@ -21,9 +21,8 @@ export class CountComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
   }
 
-  updateRow(rows: number) {
-    console.log('count module', rows);
-    this.rowsUpt.emit(rows);
+  updateSort(event) {
+    this.rowsUpt.emit({rows: event.target.value});
   }
 
 }

@@ -7,7 +7,7 @@
     <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="name"><div><div class="num" >Название</div><div class="sort">{{NameSort}}</div></div></div>
     <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="category"><div><div class="num" >Категория</div><div class="sort">{{CategorySort}}</div></div></div>
     <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="subcategory"><div><div class="num" >Субкатегория</div><div class="sort">{{SubcategorySort}}</div></div></div>
-    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-sort="firm"><div><div class="num" >Фирма</div><div class="sort">{{FirmSort}}</div></div></div>
+    <div class="Cell cellSort" (click)="updateSort($event)" data-sort="" data-id="firm"><div><div class="num" >Фирма</div><div class="sort">{{FirmSort}}</div></div></div>
   </div>
   <!-- Столбцы и строки таблицы  номенклатуры-->
   <div class="tableContent" *ngIf="HeadColumnUrl === 'nomenclature'">

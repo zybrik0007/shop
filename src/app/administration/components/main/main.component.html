@@ -7,7 +7,7 @@
         <app-tabs></app-tabs>
       </div>
       <div id="but">
-        <app-buttons ></app-buttons>
+        <app-buttons (searchUpt)="updateTable($event)"></app-buttons>
       </div>
       <div id="table">
         <app-table (sortColumn)="updateTable($event)"></app-table>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div id="footer">
-    <app-count (rowsUpt)="test($event)"></app-count>
-    <app-page></app-page>
+    <app-count (rowsUpt)="updateTable($event)"></app-count>
+    <app-page ></app-page>
   </div>
 </div>

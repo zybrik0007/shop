@@ -1,6 +1,7 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {GetCategoryInterface, GetSubcategoryInterface, GetFirmInterface, GetNomenclatureInterface, TokensInterface} from '../../interfaces/interfaces';
 import {GetService} from '../../services/requests/get.service';
+import {PageService} from '../../services/page.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,6 +19,8 @@ export class MainComponent implements OnInit {
   @Input() searchCategory: string; /*Значение поля категория*/
   @Input() searchSubcategory: string; /*Значение поля субкатегория*/
 
+
+
   /*Переменная с токенами для request запроса*/
   getHeaders: TokensInterface = {
     AccessAdmin: localStorage.getItem('AccessAdmin'),
@@ -27,6 +30,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     private getService: GetService,
+    private pageService: PageService,
     private router: Router) { }
 
   ngOnInit() {
@@ -38,6 +42,17 @@ export class MainComponent implements OnInit {
     this.searchCategory = '';
     this.searchName = '';
     this.searchSubcategory = '';
+
+    /*Первичная инициализация таблицы номенклатур*/
+    if (this.router.url === '/administration/reference/nomenclature') {
+      this.getNomenclature(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory, searchSubcatagory: this.searchSubcategory},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
+      );
+
+      this.pageService.countRows = this.rows;
+      this.pageService.countStr = 5000;
+    }
 
     /*Первичная инициализация таблицы категорий*/
     if (this.router.url === '/administration/reference/category') {
@@ -54,20 +69,29 @@ export class MainComponent implements OnInit {
       );
     }
 
+    /*Первичная инициализация таблицы фирм*/
+    if (this.router.url === '/administration/reference/firm') {
+      this.getFirm(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
+    }
   }
 
 
   /*Функции выборки данный для таблиц по араметрам*/
   /*Выбока номенклатур*/
-  getNomenclature(getParametr: GetNomenclatureInterface, getTokens: TokensInterface) {}
-
-
+  getNomenclature(getParametr: GetNomenclatureInterface, getTokens: TokensInterface) {
+    this.getService.getNomenclatureService(getParametr, getTokens)
+      .subscribe(response => {}, error => {
+        console.log('Ошибка вывода таблицы номенклатуры');
+      });
+  }
 
   /*Выборка категорий*/
   getCategory(getParametr: GetCategoryInterface, getTokens: TokensInterface) {
     this.getService.getCategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
-        console.log('Ошибка отправки категория');
+        console.log('Ошибка вывода таблицы категории');
       });
   }
 
@@ -75,12 +99,20 @@ export class MainComponent implements OnInit {
   getSubcategory(getParametr: GetSubcategoryInterface, getTokens: TokensInterface) {
     this.getService.getSubcategoryService(getParametr, getTokens)
       .subscribe(response => {}, error => {
-        console.log('Ошибка отправки субкатегория');
+        console.log('Ошибка вывода таблицы субкатегории');
       });
   }
 
+  /*Выборка фирм*/
+  getFirm(getParametr: GetFirmInterface, getTokens: TokensInterface) {
+    this.getService.getFirmService(getParametr, getTokens)
+      .subscribe(response => {}, error => {
+        console.log('Ошибка вывода таблицы фирмы');
+      });
+  }
 
-    /*Изменение таблицы с наложением фильтров*/
+  /******************************************/
+  /*Изменение таблицы с наложением фильтров*/
   updateTable(event) {
     /*Определнеие массива названия ключей, event-объекта*/
     const EventArr = Object.keys(event);
@@ -118,6 +150,14 @@ export class MainComponent implements OnInit {
       }
     }
 
+    /*Фильтрация таблицы номенклатур*/
+    if (this.router.url === '/administration/reference/nomenclature') {
+      this.getNomenclature(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory, searchSubcatagory: this.searchSubcategory},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
+      );
+    }
+
     /*Фильтрация таблицы категорий*/
     if (this.router.url === '/administration/reference/category') {
       this.getCategory(
@@ -131,6 +171,13 @@ export class MainComponent implements OnInit {
         {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
       );
+    }
+
+    /*Фильтрация таблицы фирм*/
+    if (this.router.url === '/administration/reference/firm') {
+      this.getFirm(
+        {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName},
+        {AccessAdmin: 'access', RefreshAdmin: 'refresh'});
     }
 
   }
