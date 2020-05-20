@@ -11,6 +11,10 @@ import {Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
+  countStr: number;
+  countRows: number;
+
+
   @Input() rows: number;  /*Количество строк*/
   @Input() page: number; /*Страница*/
   @Input() sortName: string; /*Поле сортировки*/
@@ -43,15 +47,15 @@ export class MainComponent implements OnInit {
     this.searchName = '';
     this.searchSubcategory = '';
 
+    this.countRows = this.rows;
+
     /*Первичная инициализация таблицы номенклатур*/
     if (this.router.url === '/administration/reference/nomenclature') {
       this.getNomenclature(
         {rows: this.rows, page: this.page, sortName: this.sortName,  sortValue: this.sortValue,  searchName: this.searchName, searchCatagory: this.searchCategory, searchSubcatagory: this.searchSubcategory},
         {AccessAdmin: 'access', RefreshAdmin: 'refresh'}
       );
-
-      this.pageService.countRows = this.rows;
-      this.pageService.countStr = 5000;
+      this.countStr = 5000;
     }
 
     /*Первичная инициализация таблицы категорий*/

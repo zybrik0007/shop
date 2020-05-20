@@ -16,6 +16,6 @@
   </div>
   <div id="footer">
     <app-count (rowsUpt)="updateTable($event)"></app-count>
-    <app-page ></app-page>
+    <app-page [countStr]="countStr" [countRows]="countRows"></app-page>
   </div>
 </div>
